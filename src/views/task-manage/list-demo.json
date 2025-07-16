@@ -9,7 +9,8 @@
       "size": 7.8,
       "sizeUnit": "MB",
       "failedReason": null,
-      "downloadUrl": "https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209104902N3v5Vpxuvb.mp4"
+      "downloadUrl": "https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209104902N3v5Vpxuvb.mp4",
+      "suffix": ".mp4"
     },
     {
       "id": 494,
@@ -18,7 +19,8 @@
       "size": 16.6,
       "sizeUnit": "MB",
       "failedReason": null,
-      "downloadUrl": "https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4"
+      "downloadUrl": "https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4",
+      "suffix": ".mp4"
     },
     {
       "id": 484,
@@ -27,7 +29,8 @@
       "size": 23,
       "sizeUnit": "MB",
       "failedReason": null,
-      "downloadUrl": "http://vjs.zencdn.net/v/oceans.mp4"
+      "downloadUrl": "http://vjs.zencdn.net/v/oceans.mp4",
+      "suffix": ".mp4"
     },
     {
       "id": 482,
@@ -36,7 +39,8 @@
       "size": 4.7,
       "sizeUnit": "MB",
       "failedReason": null,
-      "downloadUrl": "https://sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-360p.mp4"
+      "downloadUrl": "https://sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-360p.mp4",
+      "suffix": ".mp4"
     }
   ]
 }

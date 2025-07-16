@@ -45,7 +45,7 @@ export const useDownload = () => {
             };
             await downloadLargeFile(
               changeProxyUrl(taskItem.downloadUrl),
-              taskItem.name + '.mp4',
+              taskItem.name + taskItem.suffix,
               options,
             );
             currentTask.downloadState = DownloadState.Success;

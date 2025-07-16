@@ -25,7 +25,7 @@ const columns = [
 type DataItem = any;
 const dataSource = ref<DataItem[]>([]);
 const getTableData = async () => {
-  const res = (await fetchStudent()) as any;
+  const res = (await fetchTaskList()) as any;
 
   dataSource.value = res.data.map((item: any) => {
     return {
@@ -41,7 +41,7 @@ const getTableData = async () => {
   });
 };
 
-const fetchStudent = async () => {
+const fetchTaskList = async () => {
   return ListJson;
 };
 
