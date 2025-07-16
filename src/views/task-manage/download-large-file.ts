@@ -33,7 +33,7 @@ export const useDownloadLargeFile = (options?: DownloadOptions) => {
   const DB_NAME = options?.dbName || 'LargeFileDownloader';
   const FILE_STORE = 'files';
   const CHUNK_STORE = 'fileChunks';
-  const MIN_CHUNK_SIZE = options?.minChunkSize || 3 * 1024 * 1024; // 块大小
+  const MIN_CHUNK_SIZE = options?.minChunkSize || 1 * 1024 * 1024; // 块大小
   const CHUNK_SIZE = 1 * 1024 * 1024; // 块大小
   const CHUNK_SIZE_UNIT = 100 * 1024 * 1024; // 块大小
   const MAX_RETRIES = options?.maxRetries || 3;
@@ -52,6 +52,7 @@ export const useDownloadLargeFile = (options?: DownloadOptions) => {
       url,
     };
   };
+  // 分片下载过程数据
   const downloadData: DownloadDataItem[] = [];
 
   // 初始化数据库
@@ -198,6 +199,7 @@ export const useDownloadLargeFile = (options?: DownloadOptions) => {
       }
 
       const arrayBuffer = await response.arrayBuffer();
+      // 保存分片数据到indexedDB
       await saveFileChunk(fileId, chunkIndex, arrayBuffer);
 
       return arrayBuffer;
@@ -236,10 +238,11 @@ export const useDownloadLargeFile = (options?: DownloadOptions) => {
       throw error;
     }
   }
+  // 等待
   function sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
-  // 更新下载进度
+  // 获取更多下载数据
   function countProgress(downloaded: number, total: number, speed: number) {
     const percent = Math.round((downloaded / total) * 100);
     const downloadedMB = (downloaded / (1024 * 1024)).toFixed(2);
@@ -316,6 +319,27 @@ export const useDownloadLargeFile = (options?: DownloadOptions) => {
     }
   }
 
+  // 下载文件到电脑
+  async function downloadFileToLocal(blob: Blob, filename: string) {
+    const url = URL.createObjectURL(blob);
+
+    // 触发下载
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.rel = 'noopener noreferrer'; // 安全优化
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+
+    // 清理
+    setTimeout(() => {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 100);
+  }
+
+  // 合并分片数据，并下载文件到电脑
   async function streamMergeAndDownload(fileId: string) {
     try {
       const metadata = await getFileMetadata(fileId);
@@ -325,8 +349,10 @@ export const useDownloadLargeFile = (options?: DownloadOptions) => {
       const fileStream = new ReadableStream({
         async start(controller) {
           for (let i = 0; i < metadata.totalChunks; i++) {
+            // 获取所有分片数据
             const chunk = await getFileChunk(fileId, i);
             if (!chunk) throw new Error(`缺少chunk ${i}`);
+            // 将给定数据块送入到关联的流中
             controller.enqueue(new Uint8Array(chunk));
           }
           controller.close();
@@ -344,22 +370,8 @@ export const useDownloadLargeFile = (options?: DownloadOptions) => {
 
       // 创建Blob URL
       const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-
-      // 触发下载
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = metadata.name;
-      a.rel = 'noopener noreferrer'; // 安全优化
-      a.style.display = 'none';
-      document.body.appendChild(a);
-      a.click();
-
-      // 清理
-      setTimeout(() => {
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }, 100);
+      // 下载文件到本地
+      downloadFileToLocal(blob, metadata.name);
     } catch (error: any) {
       console.error('流式合并失败:', error);
       throw error;

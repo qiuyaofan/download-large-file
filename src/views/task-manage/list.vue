@@ -31,9 +31,6 @@ const getTableData = async () => {
     return {
       ...item,
       taskName: item.name,
-      taskPdfCount: item.pdfCount,
-      taskPrintCount: item.printCount,
-      pdfLoading: false,
       rowSpan: 0,
       progress: 0,
       downloadState: 'wait',

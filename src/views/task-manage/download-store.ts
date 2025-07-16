@@ -22,10 +22,6 @@ export interface DownloadItem {
   suffix: string;
 }
 export type DownloadList = DownloadItem[];
-const downloadQueue = new Queue({
-  timeout: 1000 * 60 * 60, // 单个队列过期时间：1小时
-  max: 2, // 最大同步下载个数
-});
 export const useDownloadStore = defineStore('download', () => {
   const downloadList = ref<DownloadList>([]);
 
@@ -39,7 +35,6 @@ export const useDownloadStore = defineStore('download', () => {
     downloadList,
     setDownloadList,
     clearAll,
-    downloadQueue,
   };
 });
 
