@@ -1,0 +1,7 @@
+@mixin drawer-footer {
+  display: flex;
+  justify-content: flex-end;
+  .ant-btn + .ant-btn {
+    margin-left: 8px;
+  }
+}

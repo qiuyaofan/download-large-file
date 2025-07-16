@@ -1,0 +1,157 @@
+$primary-color: #4d6bfe;
+$primary-color-2: #4d6bfe;
+$primary-hover: #6f86f9cc; // 悬浮
+$primary-background: #eff3ff;
+$primary-background-disabled: rgba(123, 122, 196, 0.2);
+$primary-disabled: rgba(123, 122, 196, 0.25);
+$secondary-color: #eff1fa;
+$page-background: #f4f6fe; // 设计稿的页面背景
+$font-color1: #2b345e; // 设计稿文字/T1颜色
+$font-color2: #2b345e; // 设计稿文字/T2颜色
+$font-color3: #83889f; // 设计稿文字/T3颜色
+$font-color4: #bec3d9;
+$border-color: #d3d3e2;
+$danger-color: #fd7979;
+$success-color: #9fcdb3;
+$warning-color: #fcb532;
+$warning-background-color: #fff9f0;
+$disabled-color: rgba(7, 22, 55, 0.25);
+
+$layout-header: 56px;
+$layout-page-tab: 55px;
+$layout-breadcrumb: 42px;
+$layout-sider-width: 180px;
+$layout-sider-collapse-width: 80px;
+$layout-header-tab-height: $layout-header + $layout-page-tab + $layout-breadcrumb;
+$layout-content-height: calc(100vh - $layout-header-tab-height - 8px);
+$layout-content-back-height: calc(100vh - $layout-header - 16px);
+@mixin bold-text($size: 14px, $color: $font-color1) {
+  font-size: $size;
+  font-weight: bold;
+  line-height: normal;
+  letter-spacing: 0em;
+  color: $color;
+}
+@mixin semi-bold-text($size: 14px, $color: $font-color1) {
+  font-family: PingFangSC-Semibold;
+  font-size: $size;
+  font-weight: normal;
+  line-height: normal;
+  letter-spacing: 0em;
+  color: $color;
+}
+
+@mixin medium-text($size: 14px, $color: $font-color1) {
+  font-family: PingFangSC-Medium;
+  font-size: $size;
+  font-weight: normal;
+  line-height: normal;
+  letter-spacing: 0em;
+  color: $color;
+}
+@mixin regular-text($size: 14px) {
+  font-family: PingFangSC-Regular;
+  font-size: $size;
+  font-weight: normal;
+  line-height: normal;
+  letter-spacing: 0em;
+}
+
+@mixin colors() {
+  &.success {
+    color: $success-color;
+  }
+  &.primary {
+    color: $primary-color;
+  }
+  &.danger {
+    color: $danger-color;
+  }
+  &.warning {
+    color: #f99019;
+  }
+}
+
+@mixin warp {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  // width: 100px; 页面内添加
+}
+
+@mixin lineEllipsis($line: 2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: justify;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+}
+
+@mixin link {
+  color: $primary-color;
+  cursor: pointer;
+  white-space: nowrap;
+  &:hover {
+    color: $primary-hover;
+  }
+}
+
+@mixin text-dot {
+  position: relative;
+  color: $font-color1;
+  padding: 5px 10px 5px 25px;
+  display: inline-block;
+  border-radius: 3px;
+  &:before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &.ongoing {
+    background-color: #e4e6f4;
+    &:before {
+      background-color: #bec3d9;
+    }
+  }
+  &.defalut {
+    background-color: #f4f6fe;
+    &:before {
+      background-color: #749ef6;
+    }
+  }
+  &.warning {
+    background-color: #fffaec;
+    &:before {
+      background-color: #fadc88;
+    }
+  }
+  &.success {
+    background-color: #e4f6ee;
+    &:before {
+      background-color: #9fcdb3;
+    }
+  }
+  // &.disabled {
+  //   &:before {
+  //     background-color: $disabled-color;
+  //   }
+  // }
+  &.danger {
+    background-color: #ffefef;
+    &:before {
+      background-color: #fd7979;
+    }
+  }
+}

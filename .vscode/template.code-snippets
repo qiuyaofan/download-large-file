@@ -1,0 +1,10 @@
+// 本文件由 npm run snippet 命令自动生成，源文件见 snippet-template 目录 
+{
+  "template": {
+    "scope": "typescript,vue",
+    "prefix": "template-template",
+    "body": [
+      "/**\n * Snippet Template\n */\n\nexport const template = async () => {};\n"
+    ]
+  }
+}

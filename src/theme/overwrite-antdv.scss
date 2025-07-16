@@ -1,0 +1,245 @@
+.ant-slider {
+  .ant-slider-rail {
+    width: 6px;
+    background-color: #dee1e8;
+  }
+  .ant-slider-track {
+    width: 6px;
+    background-color: $primary-color;
+  }
+}
+
+.ant-table {
+  color: $font-color2;
+  // 表格头部不需要分割线
+  .ant-table-cell {
+    &::before {
+      display: none !important;
+    }
+  }
+  // 表格头部背景色修改
+  .ant-table-thead > tr > th {
+    background-color: $page-background;
+    color: $font-color1;
+  }
+  .ant-table-column-title {
+    color: $font-color1;
+    font-weight: 600;
+  }
+  .ant-table-tbody > tr > td {
+    color: $font-color2;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+  .ant-table-tbody > tr.ant-table-row:hover > td,
+  .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    background: $primary-background;
+  }
+  .ant-table-tbody > tr.ant-table-row-selected > td {
+    background: #fff;
+  }
+}
+
+/** 设置表格头部不换行 **/
+.global-th-nowarp {
+  .ant-table {
+    .ant-table-thead > tr > th {
+      white-space: nowrap;
+    }
+  }
+}
+/** 面包屑 **/
+.ant-table-pagination.ant-pagination {
+  color: $font-color2;
+  .ant-pagination-item a,
+  .ant-select-selection-item {
+    color: $font-color2;
+  }
+}
+
+// 表格滚动模式不需要阴影
+.ant-table-ping-right:not(.ant-table-has-fix-right) .ant-table-container::after {
+  box-shadow: none;
+}
+
+/** 按钮 */
+.ant-btn {
+  border-radius: 4px !important;
+}
+.ant-btn-primary[disabled],
+.ant-btn-primary[disabled]:hover,
+.ant-btn-primary[disabled]:focus,
+.ant-btn-primary[disabled]:active {
+  background-color: $primary-background-disabled !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.ant-btn-background-ghost.ant-btn-primary[disabled] {
+  background: $page-background !important;
+  border: 1px solid $primary-disabled !important;
+  color: $primary-disabled !important;
+}
+.ant-tabs {
+  // 重置掉间距，需要的在页面元素加
+  & > .ant-tabs-nav {
+    margin-bottom: 0 !important;
+  }
+}
+
+.ant-tabs-tab {
+  .ant-tabs-tab-btn {
+    font-size: 16px;
+  }
+  &.ant-tabs-tab-active {
+    .ant-tabs-tab-btn {
+      font-weight: 600;
+    }
+  }
+}
+
+.ant-drawer {
+  .ant-drawer-body {
+    padding: 0;
+  }
+  .ant-drawer-close {
+    display: none;
+  }
+}
+
+.ant-tooltip {
+  max-width: 320px;
+}
+
+.ant-picker {
+  width: 100%;
+}
+
+.ant-modal {
+  color: $font-color1;
+  .ant-modal-body {
+    padding: 0;
+  }
+  &.hide-footer {
+    .ant-modal-footer {
+      display: none;
+    }
+  }
+}
+
+.ant-tooltip {
+  &.ant-tooltip-placement-topRight {
+    .ant-tooltip-arrow {
+      right: 2px;
+    }
+  }
+}
+
+.ant-popover-message{
+  white-space: nowrap;
+}
+
+// 全局样式：多层级最后一级多选样式
+.global-last-multiple-cascader {
+  .ant-cascader-menu-item-content {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ant-cascader-menus :nth-child(1),
+  .ant-cascader-menus :nth-child(2),
+  .ant-cascader-menus :nth-child(3) {
+    .ant-cascader-menu-item .ant-cascader-checkbox {
+      display: none;
+    }
+  }
+
+  [title='占位数据'] {
+    .ant-cascader-checkbox {
+      display: none;
+    }
+
+    display: none;
+    cursor: default;
+  }
+}
+
+// 修复a0图标渲染异常修复
+.ant-select-multiple .ant-select-selector::after {
+  visibility: hidden;
+}
+
+.ant-pagination {
+  .ant-pagination-item {
+    &.ant-pagination-item-active {
+      background: $primary-color;
+      a {
+        color: #fff;
+      }
+    }
+  }
+}
+
+// 修复开关文字不够宽度导致换行问题
+.ant-switch-inner {
+  white-space: nowrap;
+}
+
+// 图片预览
+.ant-image-preview-root{
+  .ant-image-preview-switch-left, .ant-image-preview-switch-right{
+    background: rgba(0, 0, 0, 0.8);
+    width: 54px;
+    height: 54px;
+    margin-top: -27px;
+    >.anticon{
+      font-size: 24px;
+    }
+  }
+}
+
+
+// 文本框计数位置修改
+.global-textarea-count.ant-input-textarea-show-count {
+  position: relative;
+
+  &::after {
+    bottom: 2px;
+    position: absolute;
+    right: 8px;
+    color: $font-color3;
+    z-index: 1;
+    font-size: 12px;
+    background-color: #fff;
+  }
+}
+
+// a-space垂直居中
+.global-a-space-center{
+  .ant-space-item{
+      display: flex;
+      align-items: center;
+  }
+  
+}
+
+
+@media (max-width: 575px) {
+  .form-no-wrap.ant-form.ant-form-horizontal {
+    .ant-form-item {
+      .ant-form-item-label {
+        flex: none;
+      }
+      .ant-form-item-control {
+        flex: 1 1 0;
+      }
+    }
+  }
+}
+
+.global-body-scroll-x{
+  .ant-modal-body {
+    overflow-x: auto;
+  }
+}

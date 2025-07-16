@@ -1,0 +1,42 @@
+{
+  "code": 0,
+  "msg": "OK",
+  "data": [
+    {
+      "id": 493,
+      "taskId": 112,
+      "name": "测试视频1",
+      "size": 7.8,
+      "sizeUnit": "MB",
+      "failedReason": null,
+      "downloadUrl": "https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209104902N3v5Vpxuvb.mp4"
+    },
+    {
+      "id": 494,
+      "taskId": 112,
+      "name": "测试视频2",
+      "size": 16.6,
+      "sizeUnit": "MB",
+      "failedReason": null,
+      "downloadUrl": "https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4"
+    },
+    {
+      "id": 484,
+      "taskId": 103,
+      "name": "测试视频3",
+      "size": 23,
+      "sizeUnit": "MB",
+      "failedReason": null,
+      "downloadUrl": "http://vjs.zencdn.net/v/oceans.mp4"
+    },
+    {
+      "id": 482,
+      "taskId": 101,
+      "name": "测试视频4",
+      "size": 4.7,
+      "sizeUnit": "MB",
+      "failedReason": null,
+      "downloadUrl": "https://sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-360p.mp4"
+    }
+  ]
+}

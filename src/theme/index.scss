@@ -1,0 +1,8 @@
+@import './scrollbar.scss';
+@import './font.scss';
+@import './overwrite-antdv.scss';
+
+body {
+  min-width: 1000px;
+  color: $font-color2 !important;
+}

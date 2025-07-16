@@ -1,0 +1,4 @@
+include:
+  - project: 'devops/sci/sci-gitlab-ci'
+    ref: dev
+    file: 'global.gitlab-ci.yml'
