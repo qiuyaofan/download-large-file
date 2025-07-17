@@ -88,6 +88,73 @@ export class Queue {
 
 ```
 
+使用队列进行下载：当用户点击下载后，触发下载，如果当前运行任务个数少于最大个数，则执行；否则加入队列等待。
+
+```js
+// download.ts
+
+// 点击下载调用
+const download = (record: DownloadItem) => {
+  const isExit = downloadStore.downloadList.find((x) => x.id === record.id);
+  if (isExit) {
+    return alert('下载任务已存在，请勿重复下载！');
+  }
+  downloadStore.downloadList.push({ ...record });
+  // 添加下载任务
+  addDownloadQueue(record);
+};
+
+// 添加下载任务到队列
+const addDownloadQueue = async (taskItem: DownloadItem) => {
+  const currentTask = downloadStore.downloadList.find((x) => x.id === taskItem.id);
+  if (!currentTask) return;
+
+  // 下载失败处理
+  const handleFail = () => {
+    // 停止下载请求
+    pauseDownload(taskItem.downloadUrl);
+    // 设置下载状态为失败
+    currentTask.downloadState = DownloadState.Fail;
+  };
+
+  try {
+    // 处理下载文件、状态修改、成功失败处理等
+    const handleDownloadFile = async () => {
+      currentTask.downloadState = DownloadState.Loading;
+      currentTask.progress = 0;
+      try {
+        // downloadLargeFile参数配置
+        const options = {
+          // 更新进度
+          updateProgress: (downloaded: number, total: number, speed: number) => {
+            const { percent } = countProgress(downloaded, total, speed);
+            currentTask.progress = Math.ceil(percent);
+          },
+        };
+        // 请求文件并下载
+        await downloadLargeFile(taskItem.downloadUrl, taskItem.name + taskItem.suffix, options);
+        // 设置下载状态为成功
+        currentTask.downloadState = DownloadState.Success;
+      } catch (err) {
+        console.error(err);
+        handleFail();
+      }
+    };
+    await downloadQueue.trigger(handleDownloadFile, null, taskItem.id);
+  } catch (err) {
+    console.error(err);
+    handleFail();
+  }
+  // 完成全部任务下载
+  if (isDownloadSuccess()) {
+    // 清空下载任务
+    setDownloadList([]);
+  }
+};
+```
+
+说明：downloadStore.downloadList 是因为将 downloadList 数据存储在 vue pinia 里（react 可以使用 vuex），用于实现切换页面后可以继续下载和记录下载进度状态等。切换回来可继续查看下载任务弹窗
+
 ## 分片下载
 
 ### 主要逻辑
@@ -99,7 +166,7 @@ export class Queue {
 - 下载成功后，合并分片数据，并下载到本地
 
 ```js
-// download.ts
+// download-large-file.ts
 async function downloadLargeFile(
     url: string,
     fileName: string
@@ -167,7 +234,7 @@ async function downloadLargeFile(
 - 当分片失败时，添加重试操作，增大下载成功概率
 
 ```js
-// download.ts
+// download-large-file.ts
 async function downloadChunk(
   url: string,
   start: number,
@@ -220,7 +287,7 @@ async function downloadChunk(
 - 得到 blob，下载文件到本地
 
 ```js
-// download.ts
+// download-large-file.ts
 async function streamMergeAndDownload(fileId: string) {
     try {
       // 创建文件流

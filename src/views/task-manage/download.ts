@@ -38,30 +38,27 @@ export const useDownload = () => {
       currentTask.downloadState = DownloadState.Fail;
     };
     try {
-      await downloadQueue.trigger(
-        async () => {
-          currentTask.downloadState = DownloadState.Loading;
-          currentTask.progress = 0;
-          try {
-            const options = {
-              // 更新进度
-              updateProgress: (downloaded: number, total: number, speed: number) => {
-                const { percent } = countProgress(downloaded, total, speed);
-                currentTask.progress = Math.ceil(percent);
-              },
-            };
-            // 请求文件并下载
-            await downloadLargeFile(taskItem.downloadUrl, taskItem.name + taskItem.suffix, options);
-            // 设置下载状态为成功
-            currentTask.downloadState = DownloadState.Success;
-          } catch (err) {
-            console.error(err);
-            handleFail();
-          }
-        },
-        null,
-        taskItem.id,
-      );
+      const handleDownloadFile = async () => {
+        currentTask.downloadState = DownloadState.Loading;
+        currentTask.progress = 0;
+        try {
+          const options = {
+            // 更新进度
+            updateProgress: (downloaded: number, total: number, speed: number) => {
+              const { percent } = countProgress(downloaded, total, speed);
+              currentTask.progress = Math.ceil(percent);
+            },
+          };
+          // 请求文件并下载
+          await downloadLargeFile(taskItem.downloadUrl, taskItem.name + taskItem.suffix, options);
+          // 设置下载状态为成功
+          currentTask.downloadState = DownloadState.Success;
+        } catch (err) {
+          console.error(err);
+          handleFail();
+        }
+      };
+      await downloadQueue.trigger(handleDownloadFile, null, taskItem.id);
     } catch (err) {
       console.error(err);
       handleFail();
